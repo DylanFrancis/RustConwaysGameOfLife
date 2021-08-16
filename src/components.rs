@@ -4,8 +4,8 @@ use specs::VecStorage;
 #[derive(Debug, Component, Clone, Copy)]
 #[storage(VecStorage)]
 pub struct Position {
-    pub x: u8,
-    pub y: u8
+    pub x: i64,
+    pub y: i64
 }
 
 #[derive(Component)]
