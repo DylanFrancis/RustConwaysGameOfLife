@@ -9,4 +9,7 @@ pub fn create_live_cell(world: &mut World, pos: Position) {
 }
 
 pub fn create_dead_cell(world: &mut World, pos: Position) {
+    world.create_entity()
+        .with(Position{..pos})
+        .build();
 }
