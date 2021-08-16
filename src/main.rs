@@ -2,6 +2,7 @@ mod systems;
 mod components;
 mod entities;
 mod core;
+mod resources;
 
 use specs::{World, RunNow};
 use ggez::{event, Context, GameResult};
