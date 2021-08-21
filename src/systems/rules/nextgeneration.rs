@@ -3,6 +3,7 @@ use specs::shred::DynamicSystemData;
 use crate::components::{Position, LiveCell, DeadCell};
 use crate::resources::next_iteration::NextIteration;
 use std::collections::HashMap;
+use crate::systems::rules::utils;
 
 pub struct NextGeneration {}
 
@@ -24,57 +25,12 @@ impl <'a> System<'a> for NextGeneration {
             .collect();
 
         for (pos, live_cell) in (&positions, &live_cells).join() {
-            let survives = will_survive((pos.x, pos.y), &live_cells_map);
+            let adjacent = utils::num_adjacent_cells((pos.x, pos.y), &live_cells_map);
+            let survives = adjacent >= 2 && adjacent <= 3;
 
             if survives {
                 next_iteration.live_cells.push((pos.x, pos.y));
             }
         }
     }
-}
-
-pub fn will_survive(pos: (u128, u128), other_live_cells: &HashMap<(u128, u128), &LiveCell>) -> bool {
-    let mut adjacent: u8 = 0;
-
-    let top = (pos.0 - 1, pos.1);
-    if other_live_cells.contains_key(&top) {
-        adjacent += 1;
-    }
-
-    let top_right = (pos.0 - 1, pos.1 + 1);
-    if other_live_cells.contains_key(&top_right) {
-        adjacent += 1;
-    }
-
-    let right = (pos.0, pos.1 + 1);
-    if other_live_cells.contains_key(&right) {
-        adjacent += 1;
-    }
-
-    let bot_right = (pos.0 + 1, pos.1 + 1);
-    if other_live_cells.contains_key(&bot_right) {
-        adjacent += 1;
-    }
-
-    let bot = (pos.0 + 1, pos.1);
-    if other_live_cells.contains_key(&bot) {
-        adjacent += 1;
-    }
-
-    let bot_left = (pos.0 + 1, pos.1 - 1);
-    if other_live_cells.contains_key(&bot_left) {
-        adjacent += 1;
-    }
-
-    let left = (pos.0, pos.1 - 1);
-    if other_live_cells.contains_key(&left) {
-        adjacent += 1;
-    }
-
-    let top_left = (pos.0 - 1, pos.1 - 1);
-    if other_live_cells.contains_key(&top_left) {
-        adjacent += 1;
-    }
-
-    adjacent >= 2 || adjacent <= 3
 }
