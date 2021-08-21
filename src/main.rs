@@ -10,6 +10,9 @@ use ggez::{event, Context, GameResult};
 use crate::core::{world_builder, context_builder, map_loader};
 use crate::systems::render::rendering::RenderingSystem;
 
+const _WIDTH: u128 = 1200;
+const _HEIGHT: u128 = 800;
+
 fn main() {
     let mut world = world_builder::build();
     let (mut context, mut events_loop) = context_builder::build();
@@ -31,7 +34,12 @@ impl event::EventHandler for Game {
     }
 
     fn draw(&mut self, _ctx: &mut Context) -> GameResult {
-        let mut renderer = RenderingSystem { context: _ctx };
+        let mut renderer = RenderingSystem {
+            context: _ctx,
+            pos: (0, 0),
+            size: (_WIDTH, _HEIGHT)
+        };
+
         renderer.run_now(&self.world);
 
         Ok(())

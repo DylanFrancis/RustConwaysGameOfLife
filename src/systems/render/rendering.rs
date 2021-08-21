@@ -4,10 +4,12 @@ use specs::shred::DynamicSystemData;
 use crate::components::{Position, Renderable};
 use ggez::graphics::{Image, DrawParam};
 
-const SIZE: f32 = 64.0;
+const _SIZE: f32 = 64.0;
 
 pub struct RenderingSystem<'a> {
-    pub context: &'a mut Context
+    pub context: &'a mut Context,
+    pub pos: (u128, u128),
+    pub size: (u128, u128)
 }
 
 impl<'a> System<'a> for RenderingSystem<'a> {
@@ -23,15 +25,25 @@ impl<'a> System<'a> for RenderingSystem<'a> {
             .collect::<Vec<_>>();
 
         for (position, to_render) in rendering_data {
-            let asset = Image::new(self.context, to_render.dir.clone()).expect("expected image");
 
-            let x = position.x as f32 * SIZE;
-            let y = position.y as f32 * (SIZE / 4.0);
+            if in_view(self.size, self.pos, (position.x, position.y)) {
+                let asset = Image::new(self.context, to_render.dir.clone()).expect("expected image");
 
-            let draw_params = DrawParam::new().dest(nalgebra::Point2::new(x, y));
-            graphics::draw(self.context, &asset, draw_params).expect("expected to draw");
+                let x = position.x as f32 * _SIZE;
+                let y = position.y as f32 * (_SIZE / 4.0);
+
+                let draw_params = DrawParam::new().dest(nalgebra::Point2::new(x, y));
+                graphics::draw(self.context, &asset, draw_params).expect("expected to draw");
+            }
         }
 
         graphics::present(self.context).expect("expected to present")
     }
+}
+
+fn in_view(render_size: (u128, u128), render_pos: (u128, u128), object_pos: (u128, u128)) -> bool {
+    render_pos.0 + render_size.0 >= object_pos.0 &&
+        render_pos.0 <= object_pos.0 &&
+        render_pos.1 + render_size.1 >= object_pos.1 &&
+        render_pos.1 <= object_pos.1
 }
