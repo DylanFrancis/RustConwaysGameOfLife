@@ -1,9 +1,9 @@
 use ggez::{Context, graphics, nalgebra};
+use ggez::graphics::{Image, DrawParam};
 use specs::{System, ReadStorage, Join, Read};
 use specs::shred::DynamicSystemData;
-use crate::components::{Position, Renderable};
-use ggez::graphics::{Image, DrawParam};
 use crate::resources::render_position::RenderPosition;
+use crate::components::{Position, Renderable};
 
 const _SIZE: f32 = 64.0;
 

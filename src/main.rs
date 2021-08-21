@@ -4,11 +4,14 @@ mod entities;
 mod core;
 mod resources;
 
-use specs::{World, RunNow};
+use specs::{World, RunNow, WorldExt};
 use ggez::{event, Context, GameResult};
+use ggez::event::{quit, KeyMods};
+use ggez::input::keyboard::KeyCode;
 
 use crate::core::{world_builder, context_builder, map_loader};
 use crate::systems::render::rendering::RenderingSystem;
+use crate::systems::input::input_system::{InputQueue, InputSystem};
 
 const _RENDER_WIDTH: u128 = 1200;
 const _RENDER_HEIGHT: u128 = 800;
@@ -32,6 +35,9 @@ struct Game {
 
 impl event::EventHandler for Game {
     fn update(&mut self, _ctx: &mut Context) -> GameResult {
+        let mut input = InputSystem { };
+        input.run_now(&self.world);
+
         Ok(())
     }
 
@@ -44,6 +50,11 @@ impl event::EventHandler for Game {
         renderer.run_now(&self.world);
 
         Ok(())
+    }
+
+    fn key_down_event(&mut self, ctx: &mut Context, keycode: KeyCode, _keymods: KeyMods, _repeat: bool) {
+        let mut input_queue = self.world.write_resource::<InputQueue>();
+        input_queue.keys_pressed.push(keycode)
     }
 }
 
