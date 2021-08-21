@@ -14,7 +14,7 @@ pub fn build(render_size: (u128, u128)) -> World {
 
 fn register_resources(world: &mut World, render_size: (u128, u128)) {
     world.insert(NextIteration::default());
-    world.insert(RenderPosition {pos: render_size});
+    world.insert(RenderPosition { pos: render_size });
 }
 
 fn register_components(world: &mut World) {

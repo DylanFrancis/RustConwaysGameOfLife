@@ -38,7 +38,6 @@ impl event::EventHandler for Game {
     fn draw(&mut self, _ctx: &mut Context) -> GameResult {
         let mut renderer = RenderingSystem {
             context: _ctx,
-            pos: (_RENDER_X, _RENDER_Y),
             size: (_RENDER_WIDTH, _RENDER_HEIGHT)
         };
 
