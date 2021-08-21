@@ -29,10 +29,10 @@ impl<'a> System<'a> for RenderingSystem<'a> {
             if in_view(self.size, self.pos, (position.x, position.y)) {
                 let asset = Image::new(self.context, to_render.dir.clone()).expect("expected image");
 
-                let x = position.x as f32 * _SIZE;
-                let y = position.y as f32 * (_SIZE / 4.0);
+                let render_x = (position.x - self.pos.0) as f32 * _SIZE;
+                let render_y = (position.y - self.pos.1) as f32 * (_SIZE / 4.0);
 
-                let draw_params = DrawParam::new().dest(nalgebra::Point2::new(x, y));
+                let draw_params = DrawParam::new().dest(nalgebra::Point2::new(render_x, render_y));
                 graphics::draw(self.context, &asset, draw_params).expect("expected to draw");
             }
         }
