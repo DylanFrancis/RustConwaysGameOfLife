@@ -18,7 +18,7 @@ impl <'a> System<'a> for NextGeneration {
         let (positions,  live_cells,
             dead_cells, mut next_iteration) = data;
 
-        let live_cells_map: HashMap<(i64, i64), &LiveCell> = (&positions, &live_cells)
+        let live_cells_map: HashMap<(u128, u128), &LiveCell> = (&positions, &live_cells)
             .join()
             .map(|t| ((t.0.x, t.0.y), t.1))
             .collect();
@@ -33,7 +33,7 @@ impl <'a> System<'a> for NextGeneration {
     }
 }
 
-pub fn will_survive(pos: (i64, i64), other_live_cells: &HashMap<(i64, i64), &LiveCell>) -> bool {
+pub fn will_survive(pos: (u128, u128), other_live_cells: &HashMap<(u128, u128), &LiveCell>) -> bool {
     let mut adjacent: u8 = 0;
 
     let top = (pos.0 - 1, pos.1);

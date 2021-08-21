@@ -3,8 +3,8 @@ use crate::components::Position;
 use crate::entities::create_live_cell;
 
 pub fn load_map(world: &mut World, map: String) {
-    let mut row: i64 = 0;
-    let mut col: i64 = 0;
+    let mut row: u128 = 0;
+    let mut col: u128 = 0;
 
     for char in map.chars() {
         let pos = Position {
