@@ -36,7 +36,7 @@ impl<'a> System<'a> for InputSystem {
                     }
                 },
                 KeyCode::Left => {
-                    if render_position.pos.0 > self.move_distance {
+                    if render_position.pos.0 >= self.move_distance {
                         render_position.pos.0 = render_position.pos.0 - self.move_distance;
                     }
                 },
