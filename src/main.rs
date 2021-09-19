@@ -72,7 +72,7 @@ impl event::EventHandler for Game {
 
         update_timer.add(timer::delta(_ctx).as_millis());
 
-        let mut input = InputSystem { };
+        let mut input = InputSystem { move_distance: 2 };
         input.run_now(&self.world);
 
         Ok(())

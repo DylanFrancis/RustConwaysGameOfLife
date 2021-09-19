@@ -9,7 +9,7 @@ pub struct InputQueue {
 }
 
 pub struct InputSystem {
-
+    pub move_distance: u128
 }
 
 impl<'a> System<'a> for InputSystem {
@@ -27,22 +27,22 @@ impl<'a> System<'a> for InputSystem {
             match key.unwrap() {
                 KeyCode::Up => {
                     if render_position.pos.1 > 0 {
-                        render_position.pos.1 = render_position.pos.1 - 1;
+                        render_position.pos.1 = render_position.pos.1 - self.move_distance;
                     }
                 },
                 KeyCode::Down => {
                     if render_position.pos.1 < u128::max_value() {
-                        render_position.pos.1 = render_position.pos.1 + 1;
+                        render_position.pos.1 = render_position.pos.1 + self.move_distance;
                     }
                 },
                 KeyCode::Left => {
                     if render_position.pos.0 > 0 {
-                        render_position.pos.0 = render_position.pos.0 - 1;
+                        render_position.pos.0 = render_position.pos.0 - self.move_distance;
                     }
                 },
                 KeyCode::Right => {
                     if render_position.pos.0 < u128::max_value() {
-                        render_position.pos.0 = render_position.pos.0 + 1;
+                        render_position.pos.0 = render_position.pos.0 + self.move_distance;
                     }
                 },
                 _ => {}
