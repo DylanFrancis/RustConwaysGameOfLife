@@ -5,7 +5,7 @@ use specs::shred::DynamicSystemData;
 use crate::resources::render_position::RenderPosition;
 use crate::components::{Position, Renderable, LiveCell};
 
-const _SIZE: f32 = 64.0;
+const _SIZE: f32 = 32.0;
 
 pub struct RenderingSystem<'a> {
     pub context: &'a mut Context,

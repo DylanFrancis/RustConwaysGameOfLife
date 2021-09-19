@@ -32,7 +32,7 @@ impl<'a> System<'a> for ApplyRules {
 
             live_cells.insert(new_cell, LiveCell{});
             positions.insert(new_cell, Position{x: live_cell.0, y: live_cell.1});
-            renderables.insert(new_cell, Renderable{dir: "/assets/peepo_64.jpg".to_string()});
+            renderables.insert(new_cell, Renderable{dir: "/assets/peepo_32.jpg".to_string()});
         }
 
         for dead_cell in &next_iteration.dead_cells {

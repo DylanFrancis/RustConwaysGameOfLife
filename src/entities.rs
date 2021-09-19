@@ -5,7 +5,7 @@ pub fn create_live_cell(world: &mut World, pos: Position) {
     println!("creating live cell");
     world.create_entity()
         .with(Position {..pos})
-        .with(Renderable {dir: "/assets/peepo_64.jpg".to_string()})
+        .with(Renderable {dir: "/assets/peepo_32.jpg".to_string()})
         .with(LiveCell {})
         .build();
 }

@@ -8,20 +8,20 @@ use specs::{World, RunNow, WorldExt};
 use ggez::{event, Context, GameResult, timer, graphics};
 use ggez::event::{quit, KeyMods};
 use ggez::input::keyboard::KeyCode;
+use std::time::Duration;
+use std::borrow::BorrowMut;
 
 use crate::core::{world_builder, context_builder, map_loader, tester};
 use crate::systems::render::rendering::RenderingSystem;
 use crate::systems::input::input_system::{InputQueue, InputSystem};
 use crate::systems::rules::nextgeneration::NextGeneration;
-use std::time::Duration;
-use crate::resources::timer::Timer;
-use std::borrow::BorrowMut;
 use crate::systems::rules::apply_rules::ApplyRules;
 use crate::systems::rules::overpopulation::OverPopulation;
 use crate::systems::rules::reproduction::Reproduction;
+use crate::resources::timer::Timer;
 
-const _RENDER_WIDTH: u128 = 1200;
-const _RENDER_HEIGHT: u128 = 800;
+const _RENDER_WIDTH: u128 = 200080;
+const _RENDER_HEIGHT: u128 = 820;
 const _RENDER_X: u128 = u128::max_value() / 2;
 const _RENDER_Y: u128 = u128::max_value() / 2;
 
@@ -52,8 +52,7 @@ impl event::EventHandler for Game {
 
         let mut update_timer = self.world.fetch_mut::<Timer>();
 
-        if update_timer.time > 1000 {
-            println!("Updating");
+        if update_timer.time > 100 {
 
             let mut next_gen = NextGeneration { };
             next_gen.run_now(&self.world);
