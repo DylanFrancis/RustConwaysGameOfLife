@@ -26,22 +26,22 @@ impl<'a> System<'a> for InputSystem {
         if key.is_some() {
             match key.unwrap() {
                 KeyCode::Up => {
-                    if render_position.pos.1 > 0 {
+                    if render_position.pos.1 >= self.move_distance {
                         render_position.pos.1 = render_position.pos.1 - self.move_distance;
                     }
                 },
                 KeyCode::Down => {
-                    if render_position.pos.1 < u128::max_value() {
+                    if render_position.pos.1 <= u128::max_value() - self.move_distance {
                         render_position.pos.1 = render_position.pos.1 + self.move_distance;
                     }
                 },
                 KeyCode::Left => {
-                    if render_position.pos.0 > 0 {
+                    if render_position.pos.0 > self.move_distance {
                         render_position.pos.0 = render_position.pos.0 - self.move_distance;
                     }
                 },
                 KeyCode::Right => {
-                    if render_position.pos.0 < u128::max_value() {
+                    if render_position.pos.0 < u128::max_value() - self.move_distance {
                         render_position.pos.0 = render_position.pos.0 + self.move_distance;
                     }
                 },
