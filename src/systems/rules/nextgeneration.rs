@@ -25,13 +25,11 @@ impl <'a> System<'a> for NextGeneration where NextGeneration: Rule{
     type SystemData = (
         ReadStorage<'a, Position>,
         ReadStorage<'a, LiveCell>,
-        ReadStorage<'a, DeadCell>,
         Write<'a, NextIteration>
     );
 
     fn run(&mut self, data: Self::SystemData) {
-        let (positions,  live_cells,
-            dead_cells, mut next_iteration) = data;
+        let (positions,  live_cells, mut next_iteration) = data;
 
         let live_cells_map: HashMap<(u128, u128), &LiveCell> = (&positions, &live_cells)
             .join()

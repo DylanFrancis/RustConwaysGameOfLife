@@ -24,19 +24,17 @@ impl<'a> System<'a> for OverPopulation {
     type SystemData = (
         ReadStorage<'a, Position>,
         ReadStorage<'a, LiveCell>,
-        ReadStorage<'a, DeadCell>,
         Write<'a, NextIteration>
     );
 
     fn run(&mut self, data: Self::SystemData) {
-        let (positions,  live_cells,
-            dead_cells, mut next_iteration) = data;
+        let (positions,  live_cells, mut next_iteration) = data;
 
         let live_cells_map: HashMap<(u128, u128), &LiveCell> = (&positions, &live_cells)
             .join()
             .map(|t| ((t.0.x, t.0.y), t.1))
             .collect();
 
-        self::OverPopulation::perform_rule(&live_cells_map, next_iteration.live_cells.as_mut());
+        self::OverPopulation::perform_rule(&live_cells_map, next_iteration.dead_cells.as_mut());
     }
 }
