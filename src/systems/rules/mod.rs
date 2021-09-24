@@ -4,3 +4,4 @@ pub mod overpopulation;
 pub mod reproduction;
 pub mod apply_rules;
 mod utils;
+mod rule;
